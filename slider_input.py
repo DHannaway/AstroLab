@@ -1,11 +1,21 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib as mpl
 import os
 from tkinter import *
+from cdict import *
 
 #Path to the executable file:
 codepath='C:\\Users\\Dan\\Documents\\GitHub\\Python\\'
 filename='CMacIonize.exe --params test_dustsimulation.param --dusty-radiative-transfer --threads 8'
+
+cdict1=[]
+for i in range(0,len(cmap1)):
+	arr=[]
+	for j in range(0,len(cmap1[i])):
+		arr.append(cmap1[i][j]/255.)
+	cdict1.append(arr)
+cm = mpl.colors.ListedColormap(cdict1)
 
 def simulation():
 	B_T=w1.get()
@@ -15,7 +25,7 @@ def simulation():
 	r_ISM=w5.get()
 	n_0=w6.get()
 
-	nphotons=300000
+	nphotons=100000
 
 	#Replace the old .param file with a new one with the entered values
 	with open('test_dustsimulation_original.param') as g:
@@ -48,8 +58,8 @@ def simulation():
 	image = np.fromfile("test_dustsimulation_output.dat", dtype = np.float64)
 	image = image.reshape((200, 200))
 	fig, ax = plt.subplots() 
-	ax.matshow(np.transpose(image), cmap='Greys_r')
-#	ax.matshow(np.transpose(image), cmap=plt.cm.bBu)
+#	ax.matshow(np.transpose(image), cmap='Greys_r')
+	ax.matshow(np.transpose(image), cmap=cm)
 	plt.text(5,60,"B_T ="+str(B_T)+'\n'+"h_stars ="+str(h_stars)+" kpc"+'\n'+"r_stars ="+str(r_stars)+" kpc"+'\n'+"h_ISM ="+str(h_ISM)+" kpc"+'\n'+"r_ISM ="+str(r_ISM)+" kpc"+'\n'+"n0 ="+str(n_0)+" cm^-3",color='w')
 
 	tick_locs_x = [0,100,200]
@@ -87,3 +97,4 @@ Button(master, text='Simulate', command=simulation
 ).pack()
 
 mainloop()
+

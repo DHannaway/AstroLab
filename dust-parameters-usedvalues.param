@@ -1,4 +1,4 @@
-# file written on 09/10/2017, 17:13:02.
+# file written on 10/10/2017, 23:27:33.
 ccdimage:
   anchor_x: -3.73406e+20 m # (-12.1 kpc)
   anchor_y: -3.73406e+20 m # (-12.1 kpc)
@@ -11,13 +11,13 @@ ccdimage:
   view_phi: 0 radians # (0 degrees)
   view_theta: 1.56556 radians # (89.7 degrees)
 continuousphotonsource:
-  B_over_T: 0.15 # (0.15)
-  h_stars: 1.543e+19 m # (0.5 kpc)
-  r_stars: 1.33007e+20 m # (4.31 kpc)
+  B_over_T: 0.21 # (0.21)
+  h_stars: 1.78988e+19 m # (0.58 kpc)
+  r_stars: 1.01221e+20 m # (3.28 kpc)
 densityfunction:
-  h_ISM: 1.11096e+19 m # (0.36 kpc)
-  n_0: 1e+06 m^-3 # (1.0 cm^-3)
-  r_ISM: 1.62015e+20 m # (5.25 kpc)
+  h_ISM: 8.6408e+18 m # (0.28 kpc)
+  n_0: 990000 m^-3 # (0.99 cm^-3)
+  r_ISM: 1.25909e+20 m # (4.08 kpc)
 densitygrid:
   box_anchor: [-3.7032e+20 m, -3.7032e+20 m, -3.7032e+20 m] # ([-12. kpc, -12. kpc, -12. kpc])
   box_sides: [7.4064e+20 m, 7.4064e+20 m, 7.4064e+20 m] # ([24. kpc, 24. kpc, 24. kpc])
@@ -27,6 +27,6 @@ dust:
   band: V # (V)
 hydro:
   active: false # (false)
-number of photons: 300000 # (300000)
+number of photons: 100000 # (100000)
 output_folder: . # (.)
 random_seed: 42 # (42)
