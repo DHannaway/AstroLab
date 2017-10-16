@@ -10,13 +10,13 @@ ccdimage:
   view_phi: 0 degrees
   view_theta: 89.7 degrees
 continuousphotonsource:
-  B_over_T: 0.16
-  h_stars: 0.5 kpc
-  r_stars: 4.0 kpc
+  B_over_T: 0.11
+  h_stars: 0.74 kpc
+  r_stars: 5.28 kpc
 densityfunction:
-  h_ISM: 0.22 kpc
-  n_0: 1.3 cm^-3
-  r_ISM: 4.25 kpc
+  h_ISM: 1.24 kpc
+  n_0: 1.03 cm^-3
+  r_ISM: 5.67 kpc
 densitygrid:
   box_anchor: [-12. kpc, -12. kpc, -12. kpc]
   box_sides: [24. kpc, 24. kpc, 24. kpc]

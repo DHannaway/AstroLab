@@ -10,7 +10,8 @@ import shutil
 #Delete the old 'images' folder, and create a new one
 if os.path.exists('images'):
 	shutil.rmtree('images')
-os.makedirs('images')
+if not os.path.exists('images'):
+	os.makedirs('images')
 
 #Path to the executable file:
 codepath='C:\\Users\\Dan\\Documents\\GitHub\\Python\\'
@@ -26,6 +27,7 @@ cm = mpl.colors.ListedColormap(cdict1)
 
 fitsfile = fits.open('NGC891_V_data.fits')
 fitsdata = fitsfile[0].data
+nfactor=np.nansum(fitsdata)
 
 datalist=[]
 for i in range(355,555):
@@ -85,7 +87,7 @@ def simulation():
 	for i in range(0,len(image)):
 		arr=[]
 		for j in range(50,150):
-			arr.append(image[i][j])
+			arr.append(image[i][j]*0.75*sum(sum(tdata)))
 		image2.append(arr)
 	image2 = np.kron(image2,np.ones((2,2)))
 
@@ -99,12 +101,12 @@ def simulation():
 #	tick_locs_y = [0,200,400]
 
 #	xtick_lbls = ['-12.1kpc','0','12.1kpc']
-#	ytick_lbls = ['-12.1kpc','0','12.1kpc']
+#	ytick_lbls = ['-6kpc','0','6kpc']
 
 #	plt.xticks(tick_locs_x, xtick_lbls,rotation=0,fontsize=10)
 #	plt.yticks(tick_locs_y, ytick_lbls,rotation=0,fontsize=10)
 
-	linearray=[150,200,340]
+	linearray=[152,200,248]
 	N=len(linearray)
 	color=iter(plt.cm.rainbow(np.linspace(0,1,N)))
 	for i in range(0,len(linearray)):
@@ -118,8 +120,10 @@ def simulation():
 
 	def normplot(func,n):
 	#	return (func[n]/max(func[n]))-(min(func[n])/max(func[n]))
-		return (func[n]/(func[n][100]))-(min(func[n])/(func[n][100]))
-
+	#	return (func[n]/(func[n][100]))-(min(func[n])/(func[n][100]))
+		return func[n]-min(func[n])
+	def difplot(func1,func2,n):
+		return (func1[n]-min(func1[n]))-(func2[n]-min(func2[n]))
 	color=iter(plt.cm.rainbow(np.linspace(0,1,N)))
 
 	fig,ax=plt.subplots(len(linearray),sharey=False)
@@ -131,6 +135,18 @@ def simulation():
 	plt.tight_layout()
 	plt.savefig('images/offset'+str(nloop))
 	plt.show()
+	plt.close()
+	color=iter(plt.cm.rainbow(np.linspace(0,1,N)))
+
+	fig,ax=plt.subplots(len(linearray),sharey=True)
+	for i in range (0,len(linearray)):
+		ax[i].plot(difplot(tdata,image2,linearray[i]),linestyle='--',label='residual',c=next(color))
+		ax[i].set_title("Intensity offset plot for x = "+str(linearray[i]))
+		ax[i].legend(loc='upper left')
+	plt.tight_layout()
+	plt.savefig('images/difference'+str(nloop))
+	plt.show()
+	plt.close()
 	nloop=nloop+1
 master = Tk()
 w1 = Scale(master, from_=0.0, to=0.99,resolution=0.01, orient=HORIZONTAL,length=500,label="B/T")
